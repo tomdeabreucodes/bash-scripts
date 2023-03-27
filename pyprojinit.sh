@@ -1,5 +1,21 @@
 #!/bin/bash
-mkdir -p ~/Documents/code/$1
-python3 -m venv ~/Documents/code/$1/venv
-source ~/Documents/code/$1/venv/bin/activate
-pip3 install pipreqs
+DIR=~/Documents/code/$1
+
+if [ $# -eq 0 ]
+  then
+    echo "Project name must be provided."
+    exit
+fi
+
+if  [ ! -d "$DIR" ]; then
+	mkdir -p $DIR
+	python3 -m venv $DIR/venv
+	source $DIR/venv/bin/activate
+	pip3 install pipreqs
+	git init $DIR
+	touch $DIR/README.md
+	cp "$( dirname -- "$( readlink -f -- "$0"; )"; )/Py.gitignore" $DIR/.gitignore
+	code $DIR
+else
+	echo "Project directory '$1' already exists."
+fi

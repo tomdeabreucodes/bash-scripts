@@ -12,6 +12,7 @@ if  [ ! -d "$DIR" ]; then
 	python3 -m venv $DIR/venv
 	source $DIR/venv/bin/activate
 	pip3 install pipreqs
+	pip3 install autopep8
 	git init $DIR
 	touch $DIR/README.md
 	cp "$( dirname -- "$( readlink -f -- "$0"; )"; )/Py.gitignore" $DIR/.gitignore
